@@ -2,6 +2,15 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "fiap-tech-challenge-terraform-state"
+    key            = "iam-role/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+  }
+}
+
 resource "aws_iam_role" "eks_role" {
   name = "${var.cluster_name}-eks-role"
 
